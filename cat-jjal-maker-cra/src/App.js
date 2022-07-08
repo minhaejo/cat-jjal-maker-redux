@@ -1,7 +1,13 @@
 import logo from './logo.svg';
 import React from "react"
 import './App.css';
-import Title from './components/title';
+import Title from './components/Title';
+import Form from './components/Form';
+import Favorited from './components/Favorited';
+import MainCard from './components/MainCard';
+
+
+
 
 const jsonLocalStorage = {
   setItem: (key, value) => {
@@ -19,79 +25,6 @@ const fetchCat = async (text) => {
   );
   const responseJson = await response.json();
   return `${OPEN_API_DOMAIN}/${responseJson.url}`;
-};
-
-
-const Form = ({ updateMainCat }) => {
-  const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
-  const [value, setValue] = React.useState("");
-  const [errorMessage, setErrorMessage] = React.useState("");
-  //useState은 왜씀? : 동적으로 상태를 관리하기 위해서
-
-  function handleInputChange(e) {
-    const userValue = e.target.value;
-    setErrorMessage("");
-    if (includesHangul(userValue)) {
-      setErrorMessage("한글은 입력할 수 없습니다.");
-    } else {
-    }
-    setValue(userValue.toUpperCase());
-  }
-
-  function handleFormSubmit(e) {
-    e.preventDefault();
-    setErrorMessage("");
-    if (value == "") {
-      setErrorMessage("빈 값으로 만들 수 없습니다.");
-      return;
-    }
-    updateMainCat(value);
-  }
-
-  return (
-    <form onSubmit={handleFormSubmit}>
-      <input
-        type="text"
-        name="name"
-        placeholder="영어 대사를 입력해주세요"
-        value={value}
-        onChange={handleInputChange}
-      />
-      <button type="submit">생성</button>
-      <p style={{ color: "red" }}>{errorMessage}</p>
-    </form>
-  );
-};
-
-function CatItem(props) {
-  return (
-    <li>
-      <img src={props.img} style={{ width: "150px" }} />
-    </li>
-  );
-}
-
-function Favorited({ favorites }) {
-  if (favorites.length === 0) {
-    return <div> 사진 위 하트를 눌러 고양이 사진을 저장해 봐요!</div>;
-  } //조건부 렌더링
-  return (
-    <ul className="favorites">
-      {favorites.map((cat) => {
-        return <CatItem img={cat} key={cat} />;
-      })}
-    </ul>
-  );
-}
-
-const MainCard = ({ img, onHeartClick, alreadyFavorites }) => {
-  const heartIcon = alreadyFavorites ? "💖" : "🤍";
-  return (
-    <div className="main-card">
-      <img src={img} alt="고양이" width="400" />
-      <button onClick={onHeartClick}>{heartIcon}</button>
-    </div>
-  );
 };
 
 const App = () => {
@@ -140,6 +73,7 @@ const App = () => {
       return nextCounter;
     });
   }
+  
   function handleHeartClick() {
     const nextFavorites = [...favorites, mainCat];
     setFavorites(nextFavorites);
