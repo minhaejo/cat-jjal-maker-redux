@@ -6,9 +6,6 @@ import Form from './components/Form';
 import Favorited from './components/Favorited';
 import MainCard from './components/MainCard';
 
-
-
-
 const jsonLocalStorage = {
   setItem: (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
