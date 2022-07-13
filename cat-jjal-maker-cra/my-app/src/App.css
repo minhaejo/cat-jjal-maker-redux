@@ -1,0 +1,23 @@
+.main_container{
+height: 700px;
+width: 100%;
+text-align: center;
+background: url(../src/img/cat_img.webp);
+background-size: 100px;
+
+}
+.cat_item{
+    list-style: none;
+}
+.main_text{
+    font-weight: 800;
+     font-size: 25px;
+    color: #AB2229;
+    padding-top: 32px;
+    
+}
+.save_cat_text{
+    font-weight: 600;
+    font-size: 21px;
+    color: #0FF0FF
+}
